@@ -1,6 +1,7 @@
 diaspora:
   repository: git://github.com/diaspora/diaspora.git
   version: master
+  environment: production
   install_path: /srv/diaspora
 
   ruby_version: 2.3.4
