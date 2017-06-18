@@ -1,0 +1,18 @@
+diaspora:
+  repository: git://github.com/diaspora/diaspora.git
+  version: master
+  install_path: /srv/diaspora
+
+  ruby_version: 2.3.4
+
+  install_redis: True
+
+  user:
+    username: diaspora
+
+  database:
+    type: postgresql
+    host: localhost
+    username: diaspora
+    password:
+    database: diaspora

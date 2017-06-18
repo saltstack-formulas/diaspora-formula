@@ -1,0 +1,20 @@
+diaspora:
+  repository: git://github.com/diaspora/diaspora.git
+
+  # version can be a branch or a tag
+  version: develop
+
+  install_path: /srv/diaspora
+
+  ruby_version: 2.3.4
+
+  user:
+    username: diaspora
+    shell: /bin/zsh
+
+  database:
+    type: postgresql
+    host: localhost
+    username: diaspora
+    password: secret
+    database: diaspora

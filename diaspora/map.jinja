@@ -1,0 +1,64 @@
+{% set os_map = salt['grains.filter_by']({
+    'Debian': {
+        'dependencies'      : [
+            'build-essential',
+            'git',
+            'curl',
+            'libcurl4-openssl-dev',
+            'libssl-dev',
+            'libxml2-dev',
+            'libxslt1-dev',
+            'imagemagick',
+            'libmagickwand-dev',
+            'ghostscript',
+            'nodejs',
+        ],
+        'postgresql_package': 'libpq-dev',
+        'mysql_package'     : 'libmariadbclient-dev',
+        'redis_package'     : 'redis-server',
+        'redis_service'     : 'redis-server',
+    },
+    'RedHat': {
+        'dependencies'      : [
+            'tar',
+            'make',
+            'automake',
+            'gcc',
+            'gcc-c++',
+            'git',
+            'net-tools',
+            'libcurl-devel',
+            'libxml2-devel',
+            'libffi-devel',
+            'libxslt-devel',
+            'wget',
+            'ImageMagick',
+            'nodejs',
+        ],
+        'postgresql_package': 'postgresql-devel',
+        'mysql_package'     : 'mariadb-devel',
+        'redis_package'     : 'redis',
+        'redis_service'     : 'redis',
+    },
+}, merge=salt['grains.filter_by']({
+    'Ubuntu':  {
+        'dependencies'      : [
+            'build-essential',
+            'git',
+            'curl',
+            'libcurl4-openssl-dev',
+            'libxml2-dev',
+            'libxslt1-dev',
+            'libgmp-dev',
+            'imagemagick',
+            'libmagickwand-dev',
+            'nodejs',
+        ],
+    },
+}, grain='os', merge=salt['pillar.get']('diaspora:lookup'))) %}
+
+{% import_yaml "diaspora/defaults.yaml" as defaults %}
+
+{% do defaults.diaspora.update(os_map) %}
+
+{% set diaspora = salt['pillar.get']('diaspora', default=defaults.diaspora, merge=True) %}
