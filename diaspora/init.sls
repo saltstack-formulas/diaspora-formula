@@ -1,4 +1,4 @@
 include:
   - diaspora.install
-#  - diaspora.config
+  - diaspora.config
 #  - diaspora.service

@@ -16,6 +16,8 @@ Install, configure and run diaspora as a service.
 
 Installs diaspora from github.
 
+(Includes `diaspora.config`)
+
 ### `diaspora.config`
 
 Configures diaspora.
@@ -23,3 +25,5 @@ Configures diaspora.
 ### `diaspora.service`
 
 Creates a service for diaspora and runs it.
+
+(Includes `diaspora.install` and `diaspora.config`)

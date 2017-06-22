@@ -1,0 +1,17 @@
+#
+# This file is managed by Salt! Do not edit by hand!
+#
+
+# have a look at https://github.com/diaspora/diaspora/blob/develop/config/diaspora.yml.example
+
+configuration:
+  {{ configuration|yaml(false)|indent(2) }}
+
+## Here you can override settings defined above if you need
+## to have them different in different environments.
+production: ## Section
+  environment: ## Section
+
+development: ## Section
+  environment: ## Section
+

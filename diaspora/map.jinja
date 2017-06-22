@@ -17,6 +17,11 @@
         'mysql_package'     : 'libmariadbclient-dev',
         'redis_package'     : 'redis-server',
         'redis_service'     : 'redis-server',
+        'configuration'     : {
+            'environment': {
+                'certificate_authorities': '/etc/ssl/certs/ca-certificates.crt'
+            }
+        },
     },
     'RedHat': {
         'dependencies'      : [
@@ -39,6 +44,11 @@
         'mysql_package'     : 'mariadb-devel',
         'redis_package'     : 'redis',
         'redis_service'     : 'redis',
+        'configuration'     : {
+            'environment': {
+                'certificate_authorities': '/etc/pki/tls/certs/ca-bundle.crt'
+            }
+        },
     },
 }, merge=salt['grains.filter_by']({
     'Ubuntu':  {

@@ -1,0 +1,54 @@
+#
+# This file is managed by Salt! Do not edit by hand!
+#
+
+postgresql: &postgresql
+  adapter: postgresql
+  host: {{ database.host }}
+  port: {{ pillar.get("diaspora:database:port", 5432) }}
+  username: {{ database.username }}
+  password: "{{ database.password }}"
+  encoding: unicode
+
+mysql: &mysql
+  adapter: mysql2
+  host: {{ database.host }}
+  port: {{ pillar.get("diaspora:database:port", 3306) }}
+  username: {{ database.username }}
+  password: "{{ database.password }}"
+#  socket: /tmp/mysql.sock
+  encoding: utf8mb4
+  collation: utf8mb4_bin
+
+
+# Comment the postgresql line and uncomment the mysql line
+# if you want to use mysql
+common: &common
+  <<: *{{ database.type }}
+
+  # Should match environment.sidekiq.concurrency
+  #pool: 25
+
+##################################################
+#### CONFIGURE ABOVE #############################
+##################################################
+
+# Normally you don't need to touch anything here
+
+combined: &combined
+  <<: *common
+development:
+  <<: *combined
+  database: {{ database.database }}
+production:
+  <<: *combined
+  database: {{ database.database }}
+test:
+  <<: *combined
+  database: "diaspora_test"
+integration1:
+  <<: *combined
+  database: diaspora_integration1
+integration2:
+  <<: *combined
+  database: diaspora_integration2

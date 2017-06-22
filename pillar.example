@@ -13,8 +13,16 @@ diaspora:
     shell: /bin/zsh
 
   database:
+    # type needs to be 'postgresql' or 'mysql'
     type: postgresql
     host: localhost
     username: diaspora
     password: secret
     database: diaspora
+
+  # have a look at https://github.com/diaspora/diaspora/blob/develop/config/diaspora.yml.example
+  configuration:
+    environment:
+      url: "https://example.org/"
+    settings:
+      pod_name: "example diaspora* pod"

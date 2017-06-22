@@ -1,5 +1,8 @@
 {%- from "diaspora/map.jinja" import diaspora with context %}
 
+include:
+  - diaspora.config
+
 diaspora_dependencies:
   pkg.installed:
     - pkgs: {{ diaspora.dependencies|json }}
@@ -79,6 +82,8 @@ diaspora_git:
     - user: {{ diaspora.user.username }}
     - require:
       - file: diaspora_install_directory
+    - require_in:
+      - file: {{ diaspora.install_path }}/config/database.yml
 
 diaspora_rvm_ruby_version_alias:
   cmd.run:
