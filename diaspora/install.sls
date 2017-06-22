@@ -130,3 +130,15 @@ diaspora_migrate_database:
       - cmd: diaspora_create_database
     - onchanges:
       - git: diaspora_git
+
+diaspora_precompile_assets:
+  cmd.run:
+    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake assets:precompile
+    - runas: diaspora
+    - cwd: {{ diaspora.install_path }}
+    - env:
+      - RAILS_ENV: {{ diaspora.environment }}
+    - require:
+      - cmd: diaspora_migrate_database
+    - onchanges:
+      - git: diaspora_git
