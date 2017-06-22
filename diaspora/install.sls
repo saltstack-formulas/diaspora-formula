@@ -103,3 +103,30 @@ diaspora_bundle_install:
       - RAILS_ENV: {{ diaspora.environment }}
     - require:
       - git: diaspora_git
+
+diaspora_create_database:
+  cmd.run:
+    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:create db:schema:load
+    - runas: diaspora
+    - cwd: {{ diaspora.install_path }}
+    - onlyif: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection" |& grep "database \"{{ diaspora.database.database }}\" does not exist (ActiveRecord::NoDatabaseError)"
+    - env:
+      - RAILS_ENV: {{ diaspora.environment }}
+    - require:
+      - file: {{ diaspora.install_path }}/config/database.yml
+      - file: {{ diaspora.install_path }}/config/diaspora.yml
+    - onchanges:
+      - git: diaspora_git
+
+diaspora_migrate_database:
+  cmd.run:
+    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate
+    - runas: diaspora
+    - cwd: {{ diaspora.install_path }}
+    - onlyif: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status | grep -oE "^\s+down"
+    - env:
+      - RAILS_ENV: {{ diaspora.environment }}
+    - require:
+      - cmd: diaspora_create_database
+    - onchanges:
+      - git: diaspora_git
