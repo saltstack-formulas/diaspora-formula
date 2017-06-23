@@ -1,4 +1,5 @@
 {%- from "diaspora/map.jinja" import diaspora with context %}
+{%- set environment = diaspora.configuration.server.rails_environment %}
 
 include:
   - diaspora.config
@@ -104,7 +105,7 @@ diaspora_bundle_install:
     - cwd: {{ diaspora.install_path }}
     - unless: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle check
     - env:
-      - RAILS_ENV: {{ diaspora.environment }}
+      - RAILS_ENV: {{ environment }}
     - require:
       - git: diaspora_git
 
@@ -115,7 +116,7 @@ diaspora_create_database:
     - cwd: {{ diaspora.install_path }}
     - onlyif: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection" |& grep "database \"{{ diaspora.database.database }}\" does not exist (ActiveRecord::NoDatabaseError)"
     - env:
-      - RAILS_ENV: {{ diaspora.environment }}
+      - RAILS_ENV: {{ environment }}
     - require:
       - cmd: diaspora_bundle_install
       - file: {{ diaspora.install_path }}/config/database.yml
@@ -130,7 +131,7 @@ diaspora_migrate_database:
     - cwd: {{ diaspora.install_path }}
     - onlyif: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status | grep -oE "^\s+down"
     - env:
-      - RAILS_ENV: {{ diaspora.environment }}
+      - RAILS_ENV: {{ environment }}
     - require:
       - cmd: diaspora_create_database
     - onchanges:
@@ -142,7 +143,7 @@ diaspora_precompile_assets:
     - runas: diaspora
     - cwd: {{ diaspora.install_path }}
     - env:
-      - RAILS_ENV: {{ diaspora.environment }}
+      - RAILS_ENV: {{ environment }}
     - require:
       - cmd: diaspora_migrate_database
     - onchanges:

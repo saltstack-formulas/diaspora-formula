@@ -72,4 +72,7 @@
 
 {% do defaults.diaspora.update(os_map) %}
 
+# use production as default rails environment
+{% do defaults.diaspora.configuration.update({'server': {'rails_environment': 'production'}}) %}
+
 {% set diaspora = salt['pillar.get']('diaspora', default=defaults.diaspora, merge=True) %}
