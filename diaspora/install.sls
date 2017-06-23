@@ -21,6 +21,10 @@ diaspora_database_dependency:
 redis_package:
   pkg.installed:
     - name: {{ diaspora.redis_package }}
+
+redis_service:
+  service.running:
+    - name: {{ diaspora.redis_service }}
 {%- endif %}
 
 diaspora_user:
@@ -113,6 +117,7 @@ diaspora_create_database:
     - env:
       - RAILS_ENV: {{ diaspora.environment }}
     - require:
+      - cmd: diaspora_bundle_install
       - file: {{ diaspora.install_path }}/config/database.yml
       - file: {{ diaspora.install_path }}/config/diaspora.yml
     - onchanges:
