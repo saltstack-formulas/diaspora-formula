@@ -6,7 +6,10 @@
             'curl',
             'libreadline-dev',
             'libcurl4-openssl-dev',
-            'libssl-dev',
+            salt['grains.filter_by']({
+                'stretch': 'libssl1.0-dev',
+                'default': 'libssl-dev'
+            }, grain='oscodename'),
             'libxml2-dev',
             'libxslt1-dev',
             'imagemagick',
