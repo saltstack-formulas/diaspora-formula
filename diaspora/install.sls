@@ -28,15 +28,14 @@ redis_service:
     - name: {{ diaspora.redis_service }}
 {%- endif %}
 
+{% set home = diaspora.user.home if 'home' in diaspora.user else '/home/' + diaspora.user.username %}
 diaspora_user:
   user.present:
     - name: {{ diaspora.user.username }}
   {%- if 'shell' in diaspora.user %}
     - shell: {{ diaspora.user.shell }}
   {%- endif %}
-  {%- if 'home' in diaspora.user %}
-    - home: {{ diaspora.user.home }}
-  {%- endif %}
+    - home: {{ home }}
 
 diaspora_rvm_gpg_key:
   cmd.run:
@@ -98,6 +97,21 @@ diaspora_rvm_ruby_version_alias:
     - require:
       - rvm: diaspora_rvm_ruby
       - git: diaspora_git
+
+diaspora_rails_env_for_login_shell:
+  file.replace:
+  {%- if 'shell' in diaspora.user and diaspora.user.shell == "/bin/zsh" %}
+    - name: {{ home }}/.zshrc
+  {%- else %}
+    - name: {{ home }}/.bashrc
+  {%- endif %}
+    - pattern: "export RAILS_ENV=\"[a-z]*\""
+    - repl: "export RAILS_ENV=\"{{ environment }}\""
+    - append_if_not_found: True
+    - not_found_content: "\nexport RAILS_ENV=\"{{ environment }}\""
+    - ignore_if_missing: True
+    - require:
+      - rvm: diaspora_rvm_ruby
 
 diaspora_bundle_install:
   cmd.run:
