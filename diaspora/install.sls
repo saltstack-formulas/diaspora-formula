@@ -96,6 +96,7 @@ diaspora_rvm_ruby_version_alias:
     - runas: diaspora
     - unless: rvm alias list | grep "$(cat {{ diaspora.install_path }}/.ruby-version) => ruby-{{ diaspora.ruby_version }}"
     - require:
+      - rvm: diaspora_rvm_ruby
       - git: diaspora_git
 
 diaspora_bundle_install:
@@ -107,6 +108,8 @@ diaspora_bundle_install:
     - env:
       - RAILS_ENV: {{ environment }}
     - require:
+      - rvm: diaspora_rvm_gemset
+      - cmd: diaspora_rvm_ruby_version_alias
       - git: diaspora_git
 
 diaspora_create_database:
