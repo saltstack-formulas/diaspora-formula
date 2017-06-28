@@ -1,0 +1,9 @@
+[Unit]
+Description=Diaspora social network
+{%- if diaspora.install_redis %}
+Wants={{ diaspora.redis_service }}.service
+After={{ diaspora.redis_service }}.service
+{%- endif %}
+
+[Install]
+WantedBy=multi-user.target

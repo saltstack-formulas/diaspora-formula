@@ -1,0 +1,14 @@
+[Unit]
+Description=Diaspora social network (unicorn)
+PartOf=diaspora.target
+StopWhenUnneeded=true
+
+[Service]
+User={{ diaspora.user.username }}
+Environment=RAILS_ENV={{ diaspora.configuration.server.rails_environment }}
+WorkingDirectory={{ diaspora.install_path }}
+ExecStart=/bin/bash -lc "bin/bundle exec unicorn -c config/unicorn.rb -E {{ diaspora.configuration.server.rails_environment }}"
+Restart=always
+
+[Install]
+WantedBy=diaspora.target
