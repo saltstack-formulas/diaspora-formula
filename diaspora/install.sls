@@ -91,6 +91,7 @@ diaspora_git:
     - rev: {{ diaspora.version }}
     - target: {{ diaspora.install_path }}
     - user: {{ diaspora.user.username }}
+    - force_fetch: True
     - require:
       - file: diaspora_install_directory
       - cmd: diaspora_reset_schema.rb
