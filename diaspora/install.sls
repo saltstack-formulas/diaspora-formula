@@ -78,6 +78,13 @@ diaspora_install_directory:
     - require:
       - user: diaspora_user
 
+diaspora_reset_schema.rb:
+  cmd.run:
+    - name: git checkout db/schema.rb
+    - runas: {{ diaspora.user.username }}
+    - cwd: {{ diaspora.install_path }}
+    - onlyif: git rev-parse && ! git diff --name-only --exit-code db/schema.rb
+
 diaspora_git:
   git.latest:
     - name: {{ diaspora.repository }}
@@ -86,6 +93,7 @@ diaspora_git:
     - user: {{ diaspora.user.username }}
     - require:
       - file: diaspora_install_directory
+      - cmd: diaspora_reset_schema.rb
     - require_in:
       - file: {{ diaspora.install_path }}/config/database.yml
 
