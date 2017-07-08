@@ -92,7 +92,7 @@ diaspora_git:
 diaspora_rvm_ruby_version_alias:
   cmd.run:
     - name: rvm alias create $(cat {{ diaspora.install_path }}/.ruby-version) ruby-{{ diaspora.ruby_version }}
-    - runas: diaspora
+    - runas: {{ diaspora.user.username }}
     - unless: rvm alias list | grep "$(cat {{ diaspora.install_path }}/.ruby-version) => ruby-{{ diaspora.ruby_version }}"
     - require:
       - rvm: diaspora_rvm_ruby
@@ -116,7 +116,7 @@ diaspora_rails_env_for_login_shell:
 diaspora_bundle_install:
   cmd.run:
     - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle install --jobs $(nproc) --deployment --without test development --with {{ diaspora.database.type }}
-    - runas: diaspora
+    - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
     - unless: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle check
     - env:
@@ -129,7 +129,7 @@ diaspora_bundle_install:
 diaspora_create_database:
   cmd.run:
     - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:create db:schema:load
-    - runas: diaspora
+    - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
     - onlyif: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection" |& grep "database \"{{ diaspora.database.database }}\" does not exist (ActiveRecord::NoDatabaseError)"
     - env:
@@ -144,7 +144,7 @@ diaspora_create_database:
 diaspora_migrate_database:
   cmd.run:
     - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate
-    - runas: diaspora
+    - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
     - onlyif: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status | grep -oE "^\s+down"
     - env:
@@ -157,7 +157,7 @@ diaspora_migrate_database:
 diaspora_precompile_assets:
   cmd.run:
     - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake assets:precompile
-    - runas: diaspora
+    - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
     - env:
       - RAILS_ENV: {{ environment }}
