@@ -61,6 +61,7 @@
             'git',
             'curl',
             'libcurl4-openssl-dev',
+            'libssl-dev',
             'libxml2-dev',
             'libxslt1-dev',
             'libgmp-dev',
@@ -68,6 +69,7 @@
             'libmagickwand-dev',
             'nodejs',
         ],
+        'mysql_package'     : 'libmysqlclient-dev',
     },
 }, grain='os', merge=salt['pillar.get']('diaspora:lookup'))) %}
 
