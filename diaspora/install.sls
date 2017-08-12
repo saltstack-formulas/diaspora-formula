@@ -137,7 +137,7 @@ diaspora_bundle_install:
 
 diaspora_create_database:
   cmd.run:
-    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:create db:schema:load
+    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:create db:migrate
     - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
     - onlyif: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection" |& grep "database \"{{ diaspora.database.database }}\" does not exist (ActiveRecord::NoDatabaseError)"
