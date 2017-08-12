@@ -83,7 +83,7 @@ diaspora_reset_schema.rb:
     - name: git checkout db/schema.rb
     - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
-    - onlyif: git rev-parse && ! git diff --name-only --exit-code db/schema.rb
+    - onlyif: git ls-files --error-unmatch db/schema.rb && git rev-parse && ! git diff --name-only --exit-code db/schema.rb
 
 diaspora_git:
   git.latest:
