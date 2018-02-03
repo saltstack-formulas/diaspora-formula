@@ -138,7 +138,7 @@ diaspora_configure_bundler:
 
 diaspora_bundle_install:
   cmd.run:
-    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle install
+    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle install --full-index
     - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
     - unless: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle check
