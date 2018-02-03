@@ -122,18 +122,30 @@ diaspora_rails_env_for_login_shell:
     - require:
       - rvm: diaspora_rvm_ruby
 
+diaspora_configure_bundler:
+  cmd.run:
+    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do script/configure_bundler
+    - runas: {{ diaspora.user.username }}
+    - cwd: {{ diaspora.install_path }}
+    - env:
+      - RAILS_ENV: {{ environment }}
+    - require:
+      - gem: diaspora_install_bundler
+      - cmd: diaspora_rvm_ruby_version_alias
+      - file: {{ diaspora.install_path }}/config/database.yml
+    - onchanges:
+      - git: diaspora_git
+
 diaspora_bundle_install:
   cmd.run:
-    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle install --jobs $(nproc) --deployment --without test development --with {{ diaspora.database.type }}
+    - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle install
     - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
     - unless: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/bundle check
     - env:
       - RAILS_ENV: {{ environment }}
     - require:
-      - rvm: diaspora_rvm_gemset
-      - cmd: diaspora_rvm_ruby_version_alias
-      - git: diaspora_git
+      - cmd: diaspora_configure_bundler
 
 diaspora_create_database:
   cmd.run:
