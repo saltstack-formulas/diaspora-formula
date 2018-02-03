@@ -45,7 +45,7 @@ production:
   database: {{ database.database }}
 test:
   <<: *combined
-  database: "diaspora_test"
+  database: diaspora_test
 integration1:
   <<: *combined
   database: diaspora_integration1
