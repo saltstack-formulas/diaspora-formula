@@ -28,7 +28,7 @@ redis_service:
     - name: {{ diaspora.redis_service }}
 {%- endif %}
 
-{% set home = diaspora.user.home if 'home' in diaspora.user else '/home/' + diaspora.user.username %}
+{% set home = diaspora.user.get('home', '/home/' + diaspora.user.username) -%}
 diaspora_user:
   user.present:
     - name: {{ diaspora.user.username }}
