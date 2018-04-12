@@ -6,6 +6,7 @@
             'curl',
             'libreadline-dev',
             'libcurl4-openssl-dev',
+            'libidn11-dev',
             salt['grains.filter_by']({
                 'stretch': 'libssl1.0-dev',
                 'default': 'libssl-dev'
