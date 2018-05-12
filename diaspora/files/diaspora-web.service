@@ -7,6 +7,7 @@ StopWhenUnneeded=true
 User={{ diaspora.user.username }}
 Environment=RAILS_ENV={{ diaspora.configuration.server.rails_environment }}
 WorkingDirectory={{ diaspora.install_path }}
+PIDFile={{ diaspora.install_path }}/tmp/pids/web.pid
 ExecStart=/bin/bash -lc "bin/bundle exec unicorn -c config/unicorn.rb -E {{ diaspora.configuration.server.rails_environment }}"
 ExecReload=/bin/kill -USR2 $MAINPID
 Restart=always
