@@ -17,7 +17,7 @@ include:
   file.managed:
     - user: root
     - mode: 644
-    - source: salt://diaspora/files/diaspora-web.service
+    - source: {{ diaspora.systemd.web_template }}
     - template: jinja
     - context:
         diaspora: {{ diaspora|json }}

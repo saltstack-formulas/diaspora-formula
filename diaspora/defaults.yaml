@@ -1,4 +1,6 @@
 diaspora:
+  systemd:
+    web_template: salt://diaspora/files/diaspora-web.service
   repository: git://github.com/diaspora/diaspora.git
   version: master
   install_path: /srv/diaspora
