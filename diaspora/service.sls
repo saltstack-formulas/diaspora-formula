@@ -52,7 +52,22 @@ diaspora_service:
       - file: /etc/systemd/system/diaspora.target
       - service: diaspora_sidekiq_service
       - service: diaspora_web_service
+
+diaspora_sidekiq_service_restart:
+  service.running:
+    - name: diaspora-sidekiq.service
+    - require:
+      - service: diaspora_service
     - watch:
       - git: diaspora_git
       - file: {{ diaspora.install_path }}/config/database.yml
       - file: {{ diaspora.install_path }}/config/diaspora.yml
+
+diaspora_web_service_restart:
+  service.running:
+    - name: diaspora-web.service
+    - reload: True
+    - require:
+      - service: diaspora_service
+    - watch:
+      - service: diaspora_sidekiq_service_restart
