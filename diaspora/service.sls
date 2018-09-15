@@ -34,20 +34,20 @@ include:
 diaspora_sidekiq_service:
   service.enabled:
     - name: diaspora-sidekiq
-    - requre:
+    - require:
       - file: /etc/systemd/system/diaspora-sidekiq.service
 
 diaspora_web_service:
   service.enabled:
     - name: diaspora-web
-    - requre:
+    - require:
       - file: /etc/systemd/system/diaspora-web.service
 
 diaspora_service:
   service.running:
     - name: diaspora.target
     - enable: True
-    - requre:
+    - require:
       - cmd: diaspora_precompile_assets
       - file: /etc/systemd/system/diaspora.target
       - service: diaspora_sidekiq_service
