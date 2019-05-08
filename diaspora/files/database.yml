@@ -13,7 +13,7 @@ postgresql: &postgresql
 mysql: &mysql
   adapter: mysql2
   host: {{ database.host }}
-  port: {{ pillar.get("diaspora:database:port", 3306) }}
+  port: {{ salt["pillar.get"]("diaspora:database:port", 3306) }}
   username: {{ database.username }}
   password: "{{ database.password }}"
 #  socket: /tmp/mysql.sock
@@ -27,7 +27,7 @@ common: &common
   <<: *{{ database.type }}
 
   # Should match environment.sidekiq.concurrency
-  #pool: 25
+  pool: {{ salt["pillar.get"]("diaspora:database:pool", 5) }}
 
 ##################################################
 #### CONFIGURE ABOVE #############################
