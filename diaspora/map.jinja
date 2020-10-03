@@ -23,7 +23,7 @@
             }, grain='oscodename'),
         ],
         'postgresql_package': 'libpq-dev',
-        'mysql_package'     : 'libmariadbclient-dev',
+        'mysql_package'     : 'default-libmysqlclient-dev',
         'redis_package'     : 'redis-server',
         'redis_service'     : 'redis-server',
         'configuration'     : {
@@ -83,7 +83,6 @@
                 'default': 'libjemalloc2'
             }, grain='oscodename'),
         ],
-        'mysql_package'     : 'libmysqlclient-dev',
         'libjemalloc': salt['grains.filter_by']({
             'bionic': '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1',
             'default': '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2'
