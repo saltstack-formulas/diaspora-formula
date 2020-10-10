@@ -198,8 +198,10 @@ suites:
           base:
             '*':
               - diaspora
+              - tests
       pillars_from_files:
         diaspora.sls: pillar.example
+        tests.sls: test/salt/pillar/tests.sls
     verifier:
       inspec_tests:
         - path: test/integration/default
