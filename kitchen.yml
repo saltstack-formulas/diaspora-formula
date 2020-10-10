@@ -195,6 +195,7 @@ suites:
             - diaspora._mapdata
             - diaspora
             - redis
+            - postgres
       pillars:
         top.sls:
           base:
@@ -206,6 +207,8 @@ suites:
         tests.sls: test/salt/pillar/tests.sls
       dependencies:
         - name: redis
+          path: test/salt/states
+        - name: postgres
           path: test/salt/states
     verifier:
       inspec_tests:
