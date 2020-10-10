@@ -1,100 +1,44 @@
-{% set os_map = salt['grains.filter_by']({
-    'Debian': {
-        'dependencies'      : [
-            'build-essential',
-            'git',
-            'curl',
-            'libreadline-dev',
-            'libcurl4-openssl-dev',
-            'libidn11-dev',
-            salt['grains.filter_by']({
-                'stretch': 'libssl1.0-dev',
-                'default': 'libssl-dev'
-            }, grain='oscodename'),
-            'libxml2-dev',
-            'libxslt1-dev',
-            'imagemagick',
-            'libmagickwand-dev',
-            'ghostscript',
-            'nodejs',
-            salt['grains.filter_by']({
-                'stretch': 'libjemalloc1',
-                'default': 'libjemalloc2'
-            }, grain='oscodename'),
-        ],
-        'postgresql_package': 'libpq-dev',
-        'mysql_package'     : 'default-libmysqlclient-dev',
-        'redis_package'     : 'redis-server',
-        'redis_service'     : 'redis-server',
-        'configuration'     : {
-            'environment': {
-                'certificate_authorities': '/etc/ssl/certs/ca-certificates.crt'
-            }
-        },
-        'libjemalloc': salt['grains.filter_by']({
-            'stretch': '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1',
-            'default': '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2'
-        }, grain='oscodename'),
-    },
-    'RedHat': {
-        'dependencies'      : [
-            'tar',
-            'make',
-            'automake',
-            'gcc',
-            'gcc-c++',
-            'git',
-            'net-tools',
-            'libcurl-devel',
-            'libxml2-devel',
-            'libffi-devel',
-            'libxslt-devel',
-            'wget',
-            'ImageMagick',
-            'nodejs',
-        ],
-        'postgresql_package': 'postgresql-devel',
-        'mysql_package'     : 'mariadb-devel',
-        'redis_package'     : 'redis',
-        'redis_service'     : 'redis',
-        'configuration'     : {
-            'environment': {
-                'certificate_authorities': '/etc/pki/tls/certs/ca-bundle.crt'
-            }
-        },
-        'libjemalloc': '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1',
-    },
-}, merge=salt['grains.filter_by']({
-    'Ubuntu': {
-        'dependencies'      : [
-            'build-essential',
-            'git',
-            'curl',
-            'libcurl4-openssl-dev',
-            'libssl-dev',
-            'libxml2-dev',
-            'libxslt1-dev',
-            'libgmp-dev',
-            'imagemagick',
-            'libmagickwand-dev',
-            'nodejs',
-            salt['grains.filter_by']({
-                'bionic': 'libjemalloc1',
-                'default': 'libjemalloc2'
-            }, grain='oscodename'),
-        ],
-        'libjemalloc': salt['grains.filter_by']({
-            'bionic': '/usr/lib/x86_64-linux-gnu/libjemalloc.so.1',
-            'default': '/usr/lib/x86_64-linux-gnu/libjemalloc.so.2'
-        }, grain='oscodename'),
-    },
-}, grain='os', merge=salt['pillar.get']('diaspora:lookup'))) %}
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
 
-{% import_yaml "diaspora/defaults.yaml" as defaults %}
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{#- Start imports as #}
+{%- import_yaml tplroot ~ "/defaults.yaml" as default_settings %}
+{%- import_yaml tplroot ~ "/osfamilymap.yaml" as osfamilymap %}
+{%- import_yaml tplroot ~ "/osmap.yaml" as osmap %}
+{%- import_yaml tplroot ~ "/osfingermap.yaml" as osfingermap %}
 
-{% do defaults.diaspora.update(os_map) %}
+{#- Retrieve the config dict only once #}
+{%- set _config = salt['config.get'](tplroot, default={}) %}
 
-# use production as default rails environment
-{% do defaults.diaspora.configuration.update({'server': {'rails_environment': 'production'}}) %}
+{%- set defaults = salt['grains.filter_by'](
+      default_settings,
+      default=tplroot,
+      merge=salt['grains.filter_by'](
+        osfamilymap,
+        grain='os_family',
+        merge=salt['grains.filter_by'](
+          osmap,
+          grain='os',
+          merge=salt['grains.filter_by'](
+            osfingermap,
+            grain='osfinger',
+            merge=salt['grains.filter_by'](
+              _config,
+              default='lookup'
+            )
+          )
+        )
+      )
+    )
+%}
 
-{% set diaspora = salt['pillar.get']('diaspora', default=defaults.diaspora, merge=True) %}
+{%- set config = salt['grains.filter_by'](
+      {'defaults': defaults},
+      default='defaults',
+      merge=_config
+    )
+%}
+
+{%- set diaspora = config %}

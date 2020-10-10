@@ -21,3 +21,7 @@ diaspora:
     username: diaspora
     password: ~
     database: diaspora
+
+  configuration:
+    server:
+      rails_environment: production

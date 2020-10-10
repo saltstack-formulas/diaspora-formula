@@ -1,0 +1,55 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['osfinger'] based logic.
+# You just need to add the key:values for an `osfinger` that differ
+# from `defaults.yaml` + `osarch.yaml` + `os_family.yaml` + `osmap.yaml`.
+# Only add an `osfinger` which is/will be supported by the formula.
+#
+# If you do not need to provide defaults via the `os_finger` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osfingermap: {}
+---
+# os: Debian
+Debian-10: {}
+Debian-9:
+  dependencies:
+    - build-essential
+    - git
+    - curl
+    - libreadline-dev
+    - libcurl4-openssl-dev
+    - libidn11-dev
+    - libssl1.0-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - imagemagick
+    - libmagickwand-dev
+    - ghostscript
+    - nodejs
+    - libjemalloc1
+  libjemalloc: /usr/lib/x86_64-linux-gnu/libjemalloc.so.1
+
+# os: Ubuntu
+Ubuntu-20.04: {}
+Ubuntu-18.04:
+  dependencies:
+    - build-essential
+    - git
+    - curl
+    - libcurl4-openssl-dev
+    - libidn11-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libgmp-dev
+    - imagemagick
+    - libmagickwand-dev
+    - nodejs
+    - libjemalloc1
+  libjemalloc: /usr/lib/x86_64-linux-gnu/libjemalloc.so.1
+
+# os: CentOS
+CentOS Linux-8: {}
+CentOS Linux-7:
+  libjemalloc: /usr/lib64/libjemalloc.so.1

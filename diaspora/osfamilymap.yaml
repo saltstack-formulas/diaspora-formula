@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['os_family'] based logic.
+# You just need to add the key:values for an `os_family` that differ
+# from `defaults.yaml` + `osarch.yaml`.
+# Only add an `os_family` which is/will be supported by the formula.
+#
+# If you do not need to provide defaults via the `os_family` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osfamilymap: {}
+---
+Debian:
+  dependencies:
+    - build-essential
+    - git
+    - curl
+    - libreadline-dev
+    - libcurl4-openssl-dev
+    - libidn11-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - imagemagick
+    - libmagickwand-dev
+    - ghostscript
+    - nodejs
+    - libjemalloc2
+  postgresql_package: libpq-dev
+  mysql_package: default-libmysqlclient-dev
+  redis_package: redis-server
+  redis_service: redis-server
+  configuration:
+    environment:
+      certificate_authorities: /etc/ssl/certs/ca-certificates.crt
+  libjemalloc: /usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+
+RedHat:
+  dependencies:
+    - tar
+    - make
+    - automake
+    - gcc
+    - gcc-c++
+    - git
+    - net-tools
+    - libcurl-devel
+    - libxml2-devel
+    - libffi-devel
+    - libxslt-devel
+    - wget
+    - ImageMagick
+    - nodejs
+    - jemalloc
+  postgresql_package: postgresql-devel
+  mysql_package: mariadb-devel
+  redis_package: redis
+  redis_service: redis
+  configuration:
+    environment:
+      certificate_authorities: /etc/pki/tls/certs/ca-bundle.crt
+  libjemalloc: /usr/lib64/libjemalloc.so.2

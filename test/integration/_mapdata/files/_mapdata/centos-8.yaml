@@ -1,0 +1,48 @@
+# yamllint disable rule:indentation rule:line-length
+# CentOS Linux-8
+---
+configuration:
+  environment:
+    certificate_authorities: /etc/pki/tls/certs/ca-bundle.crt
+    url: https://example.org/
+  server:
+    rails_environment: production
+  settings:
+    pod_name: example diaspora* pod
+database:
+  database: diaspora
+  host: localhost
+  password: secret
+  type: postgresql
+  username: diaspora
+dependencies:
+- tar
+- make
+- automake
+- gcc
+- gcc-c++
+- git
+- net-tools
+- libcurl-devel
+- libxml2-devel
+- libffi-devel
+- libxslt-devel
+- wget
+- ImageMagick
+- nodejs
+- jemalloc
+install_path: /srv/diaspora
+install_redis: true
+libjemalloc: /usr/lib64/libjemalloc.so.2
+mysql_package: mariadb-devel
+postgresql_package: postgresql-devel
+redis_package: redis
+redis_service: redis
+repository: https://github.com/diaspora/diaspora.git
+ruby_version: 2.6.6
+systemd:
+  web_template: salt://diaspora/files/diaspora-web.service
+user:
+  shell: /bin/bash
+  username: diaspora
+version: develop

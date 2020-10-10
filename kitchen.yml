@@ -192,6 +192,7 @@ suites:
       state_top:
         base:
           '*':
+            - diaspora._mapdata
             - diaspora
       pillars:
         top.sls:
@@ -204,4 +205,5 @@ suites:
         tests.sls: test/salt/pillar/tests.sls
     verifier:
       inspec_tests:
+        - path: test/integration/_mapdata
         - path: test/integration/default
