@@ -153,7 +153,10 @@ diaspora_create_database:
     - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:create db:migrate
     - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
-    - onlyif: bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }} rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection" |& grep "database \"{{ diaspora.database.database }}\" does not exist (ActiveRecord::NoDatabaseError)"'
+    - onlyif: >-
+        bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }}
+        rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection"
+        |& grep "database \"{{ diaspora.database.database }}\" does not exist (ActiveRecord::NoDatabaseError)"'
     - env:
       - RAILS_ENV: {{ environment }}
     - require:
@@ -168,7 +171,9 @@ diaspora_migrate_database:
     - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate
     - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
-    - onlyif: bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }} rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status | grep -oE "^\s+down"'
+    - onlyif: >-
+        bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }}
+        rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status | grep -oE "^\s+down"'
     - env:
       - RAILS_ENV: {{ environment }}
     - require:
