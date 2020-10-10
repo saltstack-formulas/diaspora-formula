@@ -6,6 +6,7 @@ configuration:
     certificate_authorities: /etc/pki/tls/certs/ca-bundle.crt
     url: https://example.org/
   server:
+    listen: 127.0.0.1:3000
     rails_environment: production
   settings:
     pod_name: example diaspora* pod

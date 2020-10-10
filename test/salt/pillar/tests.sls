@@ -6,3 +6,7 @@ diaspora:
 
   user:
     shell: /bin/bash
+
+  configuration:
+    server:
+      listen: 127.0.0.1:3000
