@@ -22,10 +22,6 @@ diaspora_database_dependency:
 redis_package:
   pkg.installed:
     - name: {{ diaspora.redis_package }}
-
-redis_service:
-  service.running:
-    - name: {{ diaspora.redis_service }}
 {%- endif %}
 
 {% set home = diaspora.user.get('home', '/home/' + diaspora.user.username) -%}

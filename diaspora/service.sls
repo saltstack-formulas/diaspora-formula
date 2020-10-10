@@ -31,6 +31,16 @@ include:
     - context:
         diaspora: {{ diaspora|json }}
 
+{%- if diaspora.install_redis %}
+redis_service:
+  service.running:
+    - name: {{ diaspora.redis_service }}
+    - require:
+      - pkg: redis_package
+    - require_in:
+      - service: diaspora_service
+{%- endif %}
+
 diaspora_sidekiq_service:
   service.enabled:
     - name: diaspora-sidekiq
