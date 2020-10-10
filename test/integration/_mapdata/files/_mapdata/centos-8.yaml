@@ -17,6 +17,7 @@ database:
   username: diaspora
 dependencies:
 - tar
+- bzip2
 - make
 - automake
 - gcc
@@ -24,6 +25,7 @@ dependencies:
 - git
 - net-tools
 - libcurl-devel
+- libidn-devel
 - libxml2-devel
 - libffi-devel
 - libxslt-devel
@@ -35,7 +37,7 @@ install_path: /srv/diaspora
 install_redis: true
 libjemalloc: /usr/lib64/libjemalloc.so.2
 mysql_package: mariadb-devel
-postgresql_package: postgresql-devel
+postgresql_package: libpq-devel
 redis_package: redis
 redis_service: redis
 repository: https://github.com/diaspora/diaspora.git

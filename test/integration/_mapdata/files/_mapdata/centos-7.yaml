@@ -17,6 +17,7 @@ database:
   username: diaspora
 dependencies:
 - tar
+- bzip2
 - make
 - automake
 - gcc
@@ -24,6 +25,7 @@ dependencies:
 - git
 - net-tools
 - libcurl-devel
+- libidn-devel
 - libxml2-devel
 - libffi-devel
 - libxslt-devel

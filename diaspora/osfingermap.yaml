@@ -52,4 +52,5 @@ Ubuntu-18.04:
 # os: CentOS
 CentOS Linux-8: {}
 CentOS Linux-7:
+  postgresql_package: postgresql-devel
   libjemalloc: /usr/lib64/libjemalloc.so.1

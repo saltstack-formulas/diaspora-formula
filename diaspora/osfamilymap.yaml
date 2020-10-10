@@ -38,6 +38,7 @@ Debian:
 RedHat:
   dependencies:
     - tar
+    - bzip2
     - make
     - automake
     - gcc
@@ -45,6 +46,7 @@ RedHat:
     - git
     - net-tools
     - libcurl-devel
+    - libidn-devel
     - libxml2-devel
     - libffi-devel
     - libxslt-devel
@@ -52,7 +54,7 @@ RedHat:
     - ImageMagick
     - nodejs
     - jemalloc
-  postgresql_package: postgresql-devel
+  postgresql_package: libpq-devel
   mysql_package: mariadb-devel
   redis_package: redis
   redis_service: redis
