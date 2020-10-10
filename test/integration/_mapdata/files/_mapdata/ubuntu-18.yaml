@@ -28,6 +28,7 @@ dependencies:
 - imagemagick
 - libmagickwand-dev
 - nodejs
+- tzdata
 - libjemalloc1
 install_path: /srv/diaspora
 install_redis: true

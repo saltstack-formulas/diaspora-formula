@@ -32,6 +32,7 @@ dependencies:
 - wget
 - ImageMagick
 - nodejs
+- tzdata
 - jemalloc
 install_path: /srv/diaspora
 install_redis: true

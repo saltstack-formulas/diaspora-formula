@@ -29,6 +29,7 @@ dependencies:
 - libmagickwand-dev
 - ghostscript
 - nodejs
+- tzdata
 - libjemalloc1
 install_path: /srv/diaspora
 install_redis: true

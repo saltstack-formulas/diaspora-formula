@@ -27,6 +27,7 @@ Debian-9:
     - libmagickwand-dev
     - ghostscript
     - nodejs
+    - tzdata
     - libjemalloc1
   libjemalloc: /usr/lib/x86_64-linux-gnu/libjemalloc.so.1
 
@@ -46,6 +47,7 @@ Ubuntu-18.04:
     - imagemagick
     - libmagickwand-dev
     - nodejs
+    - tzdata
     - libjemalloc1
   libjemalloc: /usr/lib/x86_64-linux-gnu/libjemalloc.so.1
 

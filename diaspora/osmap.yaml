@@ -25,6 +25,7 @@ Ubuntu:
     - imagemagick
     - libmagickwand-dev
     - nodejs
+    - tzdata
     - libjemalloc2
 
 # os_family: RedHat

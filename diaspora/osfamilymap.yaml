@@ -25,6 +25,7 @@ Debian:
     - libmagickwand-dev
     - ghostscript
     - nodejs
+    - tzdata
     - libjemalloc2
   postgresql_package: libpq-dev
   mysql_package: default-libmysqlclient-dev
@@ -53,6 +54,7 @@ RedHat:
     - wget
     - ImageMagick
     - nodejs
+    - tzdata
     - jemalloc
   postgresql_package: libpq-devel
   mysql_package: mariadb-devel
