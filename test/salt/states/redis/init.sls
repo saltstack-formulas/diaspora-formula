@@ -1,4 +1,4 @@
-{%- if grains.osfinger == 'Ubuntu-18.04' %}
+{%- if grains.get('osfinger', grains.os) == 'Ubuntu-18.04' %}
 redis_config:
   file.replace:
     - name: '/etc/redis/redis.conf'

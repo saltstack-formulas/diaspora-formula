@@ -63,3 +63,22 @@ RedHat:
     environment:
       certificate_authorities: /etc/pki/tls/certs/ca-bundle.crt
   libjemalloc: /usr/lib64/libjemalloc.so.2
+
+Arch:
+  dependencies:
+    - git
+    - imagemagick
+    - net-tools
+    - libidn
+    - libxslt
+    - gsfonts
+    - nodejs
+    - jemalloc
+  postgresql_package: postgresql-libs
+  mysql_package: libmariadbclient
+  redis_package: redis
+  redis_service: redis
+  configuration:
+    environment:
+      certificate_authorities: /etc/ssl/certs/ca-certificates.crt
+  libjemalloc: /usr/lib/libjemalloc.so.2

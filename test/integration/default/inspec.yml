@@ -13,3 +13,4 @@ supports:
   - platform-name: debian
   - platform-name: ubuntu
   - platform-name: centos
+  - platform-name: arch

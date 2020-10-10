@@ -28,7 +28,7 @@ control 'diaspora configuration' do
 
   ca_file =
     case platform[:family]
-    when 'debian'
+    when 'debian', 'arch'
       '/etc/ssl/certs/ca-certificates.crt'
     when 'redhat'
       '/etc/pki/tls/certs/ca-bundle.crt'

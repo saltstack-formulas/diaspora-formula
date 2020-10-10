@@ -14,6 +14,14 @@ diaspora_centos_enable_powertools_repo:
       - pkg: diaspora_dependencies
 {%- endif %}
 
+{%- if grains.os_family == 'Arch' %}
+diaspora_arch_install_devel_group:
+  pkg.group_installed:
+    - name: base-devel
+    - require_in:
+      - pkg: diaspora_dependencies
+{%- endif %}
+
 diaspora_dependencies:
   pkg.installed:
     - pkgs: {{ diaspora.dependencies|json }}

@@ -123,7 +123,7 @@ jobs:
     # - env: INSTANCE=default-amazonlinux-2-3000-3-py3
     # - env: INSTANCE=default-ubuntu-1804-3000-3-py2
     # - env: INSTANCE=default-ubuntu-1604-3000-3-py2
-    # - env: INSTANCE=default-arch-base-latest-3000-3-py2
+    - env: INSTANCE=default-arch-base-latest-3000-3-py2
     # - env: INSTANCE=upstart-centos-6-2019-2-py2
     # - env: INSTANCE=upstart-amazonlinux-1-2019-2-py2
     - env: INSTANCE=mysql-debian-10-master-py3

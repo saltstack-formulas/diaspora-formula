@@ -1,6 +1,7 @@
 {% set pkg = salt['grains.filter_by']({
     'Debian': 'postgresql',
     'RedHat': 'postgresql-server',
+    'Arch': 'postgresql',
 }) -%}
 
 pgsql_package:
@@ -8,7 +9,7 @@ pgsql_package:
     - name: {{ pkg }}
 
 {%- if grains.os_family == 'RedHat' %}
-pgsql_initdb:
+pgsql_initdb_redhat:
   cmd.run:
     - name: postgresql-setup initdb
     - require:
@@ -20,6 +21,15 @@ pgsql_pg_hba_redhat:
     - repl: ' md5'
     - require:
       - cmd: pgsql_initdb_redhat
+    - require_in:
+      - service: pgsql_service
+{%- elif grains.os_family == 'Arch' %}
+pgsql_initdb_arch:
+  cmd.run:
+    - name: initdb --locale en_US.UTF-8 -D '/var/lib/postgres/data'
+    - runas: postgres
+    - require:
+      - pkg: pgsql_package
     - require_in:
       - service: pgsql_service
 {%- endif %}

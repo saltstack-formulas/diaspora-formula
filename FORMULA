@@ -1,6 +1,6 @@
 name: diaspora
-os: Debian, Ubuntu, RedHat, CentOS
-os_family: Debian, RedHat
+os: Debian, Ubuntu, RedHat, CentOS, Arch
+os_family: Debian, RedHat, Arch
 version: 0.1.0
 release: 1
 minimum_version: 2019.2
