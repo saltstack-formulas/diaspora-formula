@@ -126,6 +126,8 @@ jobs:
     # - env: INSTANCE=default-arch-base-latest-3000-3-py2
     # - env: INSTANCE=upstart-centos-6-2019-2-py2
     # - env: INSTANCE=upstart-amazonlinux-1-2019-2-py2
+    - env: INSTANCE=mysql-debian-10-master-py3
+    - env: INSTANCE=mysql-ubuntu-2004-master-py3
 
     ## Define the release stage that runs `semantic-release`
     - stage: 'release'

@@ -214,3 +214,30 @@ suites:
       inspec_tests:
         - path: test/integration/_mapdata
         - path: test/integration/default
+  - name: mysql
+    includes:
+      - debian-10-master-py3
+      - ubuntu-2004-master-py3
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - diaspora
+            - mysql
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - diaspora
+              - tests
+              - mysql
+      pillars_from_files:
+        diaspora.sls: pillar.example
+        tests.sls: test/salt/pillar/tests.sls
+        mysql.sls: test/salt/pillar/mysql.sls
+      dependencies:
+        - name: mysql
+          path: test/salt/states
+    verifier:
+      inspec_tests:
+        - path: test/integration/default
