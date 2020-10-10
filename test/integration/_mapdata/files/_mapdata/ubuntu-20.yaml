@@ -25,7 +25,6 @@ dependencies:
 - libssl-dev
 - libxml2-dev
 - libxslt1-dev
-- libgmp-dev
 - imagemagick
 - libmagickwand-dev
 - nodejs

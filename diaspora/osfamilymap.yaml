@@ -15,7 +15,6 @@ Debian:
     - build-essential
     - git
     - curl
-    - libreadline-dev
     - libcurl4-openssl-dev
     - libidn11-dev
     - libssl-dev
