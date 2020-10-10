@@ -4,6 +4,16 @@
 include:
   - diaspora.config
 
+{%- if grains.os == 'CentOS' and grains.osmajorrelease >= 8 %}
+diaspora_centos_enable_powertools_repo:
+  file.replace:
+    - name: /etc/yum.repos.d/CentOS-PowerTools.repo
+    - pattern: '^enabled=[0,1]'
+    - repl: 'enabled=1'
+    - require_in:
+      - pkg: diaspora_dependencies
+{%- endif %}
+
 diaspora_dependencies:
   pkg.installed:
     - pkgs: {{ diaspora.dependencies|json }}
