@@ -77,6 +77,9 @@ diaspora_web_service_restart:
   service.running:
     - name: diaspora-web.service
     - reload: True
+    - unless: >-
+        systemctl is-active diaspora-web.service | grep -E 'activ(e|ating)' &&
+        test $(ps -p $(systemctl show --property MainPID diaspora-web.service | cut -d= -f2) -oetimes=) -lt 10
     - require:
       - service: diaspora_service
     - watch:
