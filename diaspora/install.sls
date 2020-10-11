@@ -169,8 +169,9 @@ diaspora_create_database:
     - cwd: {{ diaspora.install_path }}
     - onlyif: >-
         bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }}
-        rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection"
-        |& grep "database \"{{ diaspora.database.database }}\" does not exist (ActiveRecord::NoDatabaseError)"'
+        rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection"'
+        |& grep -E "(Unknown database '{{ diaspora.database.database }}'|database \"{{ diaspora.database.database }}\" does not exist)"
+        | grep "ActiveRecord::NoDatabaseError"
     - env:
       - RAILS_ENV: {{ environment }}
     - require:
@@ -187,7 +188,7 @@ diaspora_migrate_database:
     - cwd: {{ diaspora.install_path }}
     - onlyif: >-
         bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }}
-        rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status | grep -oE "^\s+down"'
+        rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status' | grep -oE "^\s+down"
     - env:
       - RAILS_ENV: {{ environment }}
     - require:
