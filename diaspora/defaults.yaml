@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 diaspora:
   systemd:
     web_template: salt://diaspora/files/diaspora-web.service
@@ -7,7 +10,7 @@ diaspora:
 
   ruby_version: 2.6.6
 
-  install_redis: True
+  install_redis: true
 
   user:
     username: diaspora
@@ -16,5 +19,9 @@ diaspora:
     type: postgresql
     host: localhost
     username: diaspora
-    password:
+    password: ~
     database: diaspora
+
+  configuration:
+    server:
+      rails_environment: production

@@ -1,0 +1,31 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+# Setup variables using grains['os'] based logic.
+# You just need to add the key:values for an `os` that differ
+# from `defaults.yaml` + `osarch.yaml` + `os_family.yaml`.
+# Only add an `os` which is/will be supported by the formula.
+#
+# If you do not need to provide defaults via the `os` grain,
+# you will need to provide at least an empty dict in this file, e.g.
+# osmap: {}
+---
+# os_family: Debian
+Ubuntu:
+  dependencies:
+    - build-essential
+    - git
+    - curl
+    - libcurl4-openssl-dev
+    - libidn11-dev
+    - libssl-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - imagemagick
+    - libmagickwand-dev
+    - nodejs
+    - tzdata
+    - libjemalloc2
+
+# os_family: RedHat
+CentOS: {}

@@ -31,6 +31,16 @@ include:
     - context:
         diaspora: {{ diaspora|json }}
 
+{%- if diaspora.install_redis %}
+redis_service:
+  service.running:
+    - name: {{ diaspora.redis_service }}
+    - require:
+      - pkg: redis_package
+    - require_in:
+      - service: diaspora_service
+{%- endif %}
+
 diaspora_sidekiq_service:
   service.enabled:
     - name: diaspora-sidekiq
@@ -67,6 +77,9 @@ diaspora_web_service_restart:
   service.running:
     - name: diaspora-web.service
     - reload: True
+    - unless: >-
+        systemctl is-active diaspora-web.service | grep -E 'activ(e|ating)' &&
+        test $(ps -p $(systemctl show --property MainPID diaspora-web.service | cut -d= -f2) -oetimes=) -lt 10
     - require:
       - service: diaspora_service
     - watch:

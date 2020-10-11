@@ -4,6 +4,24 @@
 include:
   - diaspora.config
 
+{%- if grains.os == 'CentOS' and grains.osmajorrelease >= 8 %}
+diaspora_centos_enable_powertools_repo:
+  file.replace:
+    - name: /etc/yum.repos.d/CentOS-PowerTools.repo
+    - pattern: '^enabled=[0,1]'
+    - repl: 'enabled=1'
+    - require_in:
+      - pkg: diaspora_dependencies
+{%- endif %}
+
+{%- if grains.os_family == 'Arch' %}
+diaspora_arch_install_devel_group:
+  pkg.group_installed:
+    - name: base-devel
+    - require_in:
+      - pkg: diaspora_dependencies
+{%- endif %}
+
 diaspora_dependencies:
   pkg.installed:
     - pkgs: {{ diaspora.dependencies|json }}
@@ -22,10 +40,6 @@ diaspora_database_dependency:
 redis_package:
   pkg.installed:
     - name: {{ diaspora.redis_package }}
-
-redis_service:
-  service.running:
-    - name: {{ diaspora.redis_service }}
 {%- endif %}
 
 {% set home = diaspora.user.get('home', '/home/' + diaspora.user.username) -%}
@@ -153,7 +167,11 @@ diaspora_create_database:
     - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:create db:migrate
     - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
-    - onlyif: bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }} rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection" |& grep "database \"{{ diaspora.database.database }}\" does not exist (ActiveRecord::NoDatabaseError)"'
+    - onlyif: >-
+        bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }}
+        rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rails runner "ActiveRecord::Base.connection"'
+        |& grep -E "(Unknown database '{{ diaspora.database.database }}'|database \"{{ diaspora.database.database }}\" does not exist)"
+        | grep "ActiveRecord::NoDatabaseError"
     - env:
       - RAILS_ENV: {{ environment }}
     - require:
@@ -168,7 +186,9 @@ diaspora_migrate_database:
     - name: rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate
     - runas: {{ diaspora.user.username }}
     - cwd: {{ diaspora.install_path }}
-    - onlyif: bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }} rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status | grep -oE "^\s+down"'
+    - onlyif: >-
+        bash -c 'cd {{ diaspora.install_path }}; RAILS_ENV={{ environment }}
+        rvm ruby-{{ diaspora.ruby_version }}@diaspora do bin/rake db:migrate:status' | grep -oE "^\s+down"
     - env:
       - RAILS_ENV: {{ environment }}
     - require:

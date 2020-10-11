@@ -1,0 +1,42 @@
+# yamllint disable rule:indentation rule:line-length
+# Arch
+---
+configuration:
+  environment:
+    certificate_authorities: /etc/ssl/certs/ca-certificates.crt
+    url: https://example.org/
+  server:
+    listen: 127.0.0.1:3000
+    rails_environment: production
+  settings:
+    pod_name: example diaspora* pod
+database:
+  database: diaspora
+  host: localhost
+  password: secret
+  type: postgresql
+  username: diaspora
+dependencies:
+- git
+- imagemagick
+- net-tools
+- libidn
+- libxslt
+- gsfonts
+- nodejs
+- jemalloc
+install_path: /srv/diaspora
+install_redis: true
+libjemalloc: /usr/lib/libjemalloc.so.2
+mysql_package: libmariadbclient
+postgresql_package: postgresql-libs
+redis_package: redis
+redis_service: redis
+repository: https://github.com/diaspora/diaspora.git
+ruby_version: 2.6.6
+systemd:
+  web_template: salt://diaspora/files/diaspora-web.service
+user:
+  shell: /bin/bash
+  username: diaspora
+version: develop

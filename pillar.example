@@ -1,12 +1,17 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 diaspora:
-  repository: git://github.com/diaspora/diaspora.git
+  repository: https://github.com/diaspora/diaspora.git
 
   # version can be a branch or a tag
   version: develop
 
   install_path: /srv/diaspora
 
-  ruby_version: 2.3.4
+  ruby_version: 2.6.6
+
+  install_redis: false
 
   user:
     username: diaspora
@@ -20,7 +25,7 @@ diaspora:
     password: secret
     database: diaspora
 
-  # have a look at https://github.com/diaspora/diaspora/blob/develop/config/diaspora.yml.example
+  # see https://github.com/diaspora/diaspora/blob/develop/config/diaspora.toml.example
   configuration:
     environment:
       url: "https://example.org/"

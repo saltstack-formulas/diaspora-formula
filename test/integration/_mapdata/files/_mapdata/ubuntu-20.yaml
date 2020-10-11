@@ -1,0 +1,47 @@
+# yamllint disable rule:indentation rule:line-length
+# Ubuntu-20.04
+---
+configuration:
+  environment:
+    certificate_authorities: /etc/ssl/certs/ca-certificates.crt
+    url: https://example.org/
+  server:
+    listen: 127.0.0.1:3000
+    rails_environment: production
+  settings:
+    pod_name: example diaspora* pod
+database:
+  database: diaspora
+  host: localhost
+  password: secret
+  type: postgresql
+  username: diaspora
+dependencies:
+- build-essential
+- git
+- curl
+- libcurl4-openssl-dev
+- libidn11-dev
+- libssl-dev
+- libxml2-dev
+- libxslt1-dev
+- imagemagick
+- libmagickwand-dev
+- nodejs
+- tzdata
+- libjemalloc2
+install_path: /srv/diaspora
+install_redis: true
+libjemalloc: /usr/lib/x86_64-linux-gnu/libjemalloc.so.2
+mysql_package: default-libmysqlclient-dev
+postgresql_package: libpq-dev
+redis_package: redis-server
+redis_service: redis-server
+repository: https://github.com/diaspora/diaspora.git
+ruby_version: 2.6.6
+systemd:
+  web_template: salt://diaspora/files/diaspora-web.service
+user:
+  shell: /bin/bash
+  username: diaspora
+version: develop
