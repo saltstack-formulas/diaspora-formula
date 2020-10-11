@@ -217,12 +217,15 @@ suites:
   - name: mysql
     includes:
       - debian-10-master-py3
+      - debian-9-3001-py3
       - ubuntu-2004-master-py3
+      - ubuntu-1804-master-py3
     provisioner:
       state_top:
         base:
           '*':
             - diaspora
+            - redis
             - mysql
       pillars:
         top.sls:
@@ -236,6 +239,8 @@ suites:
         tests.sls: test/salt/pillar/tests.sls
         mysql.sls: test/salt/pillar/mysql.sls
       dependencies:
+        - name: redis
+          path: test/salt/states
         - name: mysql
           path: test/salt/states
     verifier:
