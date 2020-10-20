@@ -1,5 +1,17 @@
 # Changelog
 
+# [1.1.0](https://github.com/SuperTux88/diaspora-formula/compare/v1.0.0...v1.1.0) (2020-10-20)
+
+
+### Code Refactoring
+
+* **sls:** align to template-formula: use tplroot ([a3a19f5](https://github.com/SuperTux88/diaspora-formula/commit/a3a19f5a05a6288cfab59fca8ca6c2fd3a9ea2ec))
+
+
+### Features
+
+* **tofs:** add TOFS support ([817d202](https://github.com/SuperTux88/diaspora-formula/commit/817d2022d269878efae71ce6ebb32e75ff4e3143))
+
 # 1.0.0 (2020-10-12)
 
 
