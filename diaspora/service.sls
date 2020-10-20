@@ -1,8 +1,13 @@
-{%- from "diaspora/map.jinja" import diaspora with context %}
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{%- from tplroot ~ "/map.jinja" import diaspora with context %}
 
 include:
-  - diaspora.install
-  - diaspora.config
+  - {{ tplroot }}.install
+  - {{ tplroot }}.config
 
 /etc/systemd/system/diaspora-sidekiq.service:
   file.managed:

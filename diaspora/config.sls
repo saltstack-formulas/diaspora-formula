@@ -1,4 +1,9 @@
-{%- from "diaspora/map.jinja" import diaspora with context %}
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{%- from tplroot ~ "/map.jinja" import diaspora with context %}
 
 {{ diaspora.install_path }}/config/database.yml:
   file.managed:

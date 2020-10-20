@@ -1,8 +1,13 @@
-{%- from "diaspora/map.jinja" import diaspora with context %}
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+
+{#- Get the `tplroot` from `tpldir` #}
+{%- set tplroot = tpldir.split('/')[0] %}
+{%- from tplroot ~ "/map.jinja" import diaspora with context %}
 {%- set environment = diaspora.configuration.server.rails_environment %}
 
 include:
-  - diaspora.config
+  - {{ tplroot }}.config
 
 {%- if grains.os == 'CentOS' and grains.osmajorrelease >= 8 %}
 diaspora_centos_enable_powertools_repo:
