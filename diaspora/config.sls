@@ -4,12 +4,16 @@
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import diaspora with context %}
+{%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
 {{ diaspora.install_path }}/config/database.yml:
   file.managed:
     - user: {{ diaspora.user.username }}
     - mode: 600
-    - source: salt://diaspora/files/database.yml
+    - source: {{ files_switch(['database.yml'],
+                              lookup='database_config'
+                 )
+              }}
     - template: jinja
     - context:
         database: {{ diaspora.database|json }}
@@ -18,7 +22,10 @@
   file.managed:
     - user: {{ diaspora.user.username }}
     - mode: 600
-    - source: salt://diaspora/files/diaspora.yml
+    - source: {{ files_switch(['diaspora.yml'],
+                              lookup='diaspora_config'
+                 )
+              }}
     - template: jinja
     - context:
         configuration: {{ diaspora.configuration|json }}

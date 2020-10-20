@@ -4,6 +4,7 @@
 {#- Get the `tplroot` from `tpldir` #}
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import diaspora with context %}
+{%- from tplroot ~ "/libtofs.jinja" import files_switch with context %}
 
 include:
   - {{ tplroot }}.install
@@ -13,7 +14,10 @@ include:
   file.managed:
     - user: root
     - mode: 644
-    - source: salt://diaspora/files/diaspora-sidekiq.service
+    - source: {{ files_switch(['diaspora-sidekiq.service'],
+                              lookup='sidekiq_service'
+                 )
+              }}
     - template: jinja
     - context:
         diaspora: {{ diaspora|json }}
@@ -22,7 +26,11 @@ include:
   file.managed:
     - user: root
     - mode: 644
-    - source: {{ diaspora.systemd.web_template }}
+    - source: {{ diaspora.systemd.web_template if diaspora.systemd is defined and diaspora.systemd.web_template is defined
+                 else files_switch(['diaspora-web.service'],
+                                   lookup='web_service'
+                 )
+              }}
     - template: jinja
     - context:
         diaspora: {{ diaspora|json }}
@@ -31,7 +39,10 @@ include:
   file.managed:
     - user: root
     - mode: 644
-    - source: salt://diaspora/files/diaspora.target
+    - source: {{ files_switch(['diaspora.target'],
+                              lookup='diaspora_target'
+                 )
+              }}
     - template: jinja
     - context:
         diaspora: {{ diaspora|json }}

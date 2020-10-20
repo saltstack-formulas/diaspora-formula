@@ -34,8 +34,6 @@ redis_package: redis
 redis_service: redis
 repository: https://github.com/diaspora/diaspora.git
 ruby_version: 2.6.6
-systemd:
-  web_template: salt://diaspora/files/diaspora-web.service
 user:
   shell: /bin/bash
   username: diaspora
