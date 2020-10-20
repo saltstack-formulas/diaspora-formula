@@ -40,8 +40,6 @@ redis_package: redis-server
 redis_service: redis-server
 repository: https://github.com/diaspora/diaspora.git
 ruby_version: 2.6.6
-systemd:
-  web_template: salt://diaspora/files/diaspora-web.service
 user:
   shell: /bin/bash
   username: diaspora

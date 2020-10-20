@@ -12,8 +12,8 @@ ignore: |
   node_modules/
   test/**/states/**/*.sls
   .kitchen/
-  diaspora/files/database.yml
-  diaspora/files/diaspora.yml
+  diaspora/files/default/database.yml
+  diaspora/files/default/diaspora.yml
 
 yaml-files:
   # Default settings
