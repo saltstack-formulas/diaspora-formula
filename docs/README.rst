@@ -5,10 +5,10 @@ diaspora-formula
 
 |img_travis| |img_sr| |img_pc|
 
-.. |img_travis| image:: https://travis-ci.com/SuperTux88/diaspora-formula.svg?branch=master
+.. |img_travis| image:: https://travis-ci.com/saltstack-formulas/diaspora-formula.svg?branch=master
    :alt: Travis CI Build Status
    :scale: 100%
-   :target: https://travis-ci.com/SuperTux88/diaspora-formula
+   :target: https://travis-ci.com/saltstack-formulas/diaspora-formula
 .. |img_sr| image:: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg
    :alt: Semantic Release
    :scale: 100%
