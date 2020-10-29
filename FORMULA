@@ -1,7 +1,7 @@
 name: diaspora
 os: Debian, Ubuntu, RedHat, CentOS, Arch
 os_family: Debian, RedHat, Arch
-version: 1.1.0
+version: 1.1.1
 release: 1
 minimum_version: 2019.2
 summary: diaspora formula

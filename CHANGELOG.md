@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.1.1](https://github.com/saltstack-formulas/diaspora-formula/compare/v1.1.0...v1.1.1) (2020-10-29)
+
+
+### Documentation
+
+* **readme:** update travis badge to link to saltstack-formulas org ([13f44ed](https://github.com/saltstack-formulas/diaspora-formula/commit/13f44ed935263ef347ecc2c5ca7bb2868e8d9bc6))
+
+
+### Tests
+
+* **inspec:** `system.rb` must call parent class initialisation ([461bd70](https://github.com/saltstack-formulas/diaspora-formula/commit/461bd708e582997385bd7e8cdc3ec4cb1551d1b4))
+* **inspec:** update `system.rb` from template with gentoo support ([54c40c6](https://github.com/saltstack-formulas/diaspora-formula/commit/54c40c6d956fcb56cd7c510330b99f525374aa18))
+
 # [1.1.0](https://github.com/SuperTux88/diaspora-formula/compare/v1.0.0...v1.1.0) (2020-10-20)
 
 
