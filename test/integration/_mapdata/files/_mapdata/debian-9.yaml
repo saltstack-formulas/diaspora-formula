@@ -27,7 +27,7 @@ dependencies:
 - libxslt1-dev
 - imagemagick
 - libmagickwand-dev
-- ghostscript
+- gsfonts
 - nodejs
 - tzdata
 - libjemalloc1

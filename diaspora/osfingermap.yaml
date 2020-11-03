@@ -24,7 +24,7 @@ Debian-9:
     - libxslt1-dev
     - imagemagick
     - libmagickwand-dev
-    - ghostscript
+    - gsfonts
     - nodejs
     - tzdata
     - libjemalloc1
@@ -44,6 +44,7 @@ Ubuntu-18.04:
     - libxslt1-dev
     - imagemagick
     - libmagickwand-dev
+    - gsfonts
     - nodejs
     - tzdata
     - libjemalloc1
