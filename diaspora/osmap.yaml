@@ -11,21 +11,7 @@
 # osmap: {}
 ---
 # os_family: Debian
-Ubuntu:
-  dependencies:
-    - build-essential
-    - git
-    - curl
-    - libcurl4-openssl-dev
-    - libidn11-dev
-    - libssl-dev
-    - libxml2-dev
-    - libxslt1-dev
-    - imagemagick
-    - libmagickwand-dev
-    - nodejs
-    - tzdata
-    - libjemalloc2
+Ubuntu: {}
 
 # os_family: RedHat
 CentOS: {}
