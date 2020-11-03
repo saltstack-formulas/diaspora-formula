@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.1.2](https://github.com/saltstack-formulas/diaspora-formula/compare/v1.1.1...v1.1.2) (2020-11-03)
+
+
+### Code Refactoring
+
+* **dependencies:** install gsfonts on all debian based distros ([0423466](https://github.com/saltstack-formulas/diaspora-formula/commit/042346643c12f1ef89069ccae7f4ed8c89b44aa6))
+
+
+### Documentation
+
+* **changelog:** update links in changelog to saltstack-formulas [skip ci] ([0ea714d](https://github.com/saltstack-formulas/diaspora-formula/commit/0ea714d58c963ecb15a7946a76c5ff34f6368e56))
+
+
+### Tests
+
+* **captcha:** add a little test that verifies captcha works ([557315e](https://github.com/saltstack-formulas/diaspora-formula/commit/557315e7882271e7cc47628524f70d46b5b0d57e))
+
 ## [1.1.1](https://github.com/saltstack-formulas/diaspora-formula/compare/v1.1.0...v1.1.1) (2020-10-29)
 
 
